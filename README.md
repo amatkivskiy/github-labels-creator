@@ -7,3 +7,4 @@ A fancy tool to automate creation of default labels set for Github repository.
 Example: `github_labels_creator.sh token square/retrofit`
 
 ### Default labels and their colors:
+![Default labels](https://raw.githubusercontent.com/amatkivskiy/github-labels-creator/master/default_labels.png)
