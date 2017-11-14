@@ -1,4 +1,4 @@
-# github-labels-creator
+# Github labels creator
 A fancy tool to automate creation of default labels set for Github repository.
 
 - first argument should be [Github Auth token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) to authorize Github API Reqests
