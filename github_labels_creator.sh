@@ -45,9 +45,6 @@ fi
 github_token=$1
 repository=$2
 
-# echo "Please enter github organization and repository name like 'organization/repository', followed by [ENTER]:"
-
-
 for ((i=0;i<${#label_names[@]};++i)); do
 	response=$(curl --write-out %{http_code} \
       --silent \
