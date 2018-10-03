@@ -25,7 +25,6 @@ label_colors=(
 	'cc317c' 
 	'ffffff'
 )
-
 default_labels=(
 	'bug'
 	'duplicate'
@@ -38,7 +37,7 @@ default_labels=(
 )
 
 echo ''
-echo "This script will remouve default labels and create c repustom repository labels."
+echo "This script will delete default labels and create c repustom repository labels."
 echo ''
 echo "First argument should be Github Auth token to authorize Github API Reqests,"
 echo "Second argument should be oranization/repository name (like: 'square/retrofit')."
@@ -67,13 +66,12 @@ for ((i=0;i<${#default_labels[@]};++i)); do
 	  "https://api.github.com/repos/$repository/labels/${default_labels[i]}" \
 	  -H "authorization: token $github_token" )
 
-    echo "https://api.github.com/repos/$repository/labels/${default_labels[i]}"
 	if [ "$response" -eq "204" ]
 	then
 		echo "Label ${default_labels[i]} has been successfuly deleted"
 	else
 		echo "Failed to delete ${default_labels[i]}. Code $response"
-    fi
+	fi
 done 
 
 # Create custom labels
