@@ -26,13 +26,26 @@ label_colors=(
 	'ffffff'
 )
 
+default_labels=(
+	'bug'
+	'duplicate'
+	'enhancement'
+	'invalid'
+	'question'
+	'wontfix'
+	'help%20wanted'
+	'good%20first%20issue'
+)
+
 echo ''
-echo "This script will create default repository labels."
+echo "This script will remouve default labels and create c repustom repository labels."
 echo ''
 echo "First argument should be Github Auth token to authorize Github API Reqests,"
 echo "Second argument should be oranization/repository name (like: 'square/retrofit')."
 echo ''
 echo "Example: github_labels_creator.sh token square/retrofit"
+echo ''
+echo "Do not forget to grant execute permission to the script by chmod +x github_labels_creator.sh otherwise you will face an error: github_labels_creator.sh: Permission denied"
 echo ''
 echo "Default label names:"
 printf '%s\n' "${label_names[@]}"
@@ -45,6 +58,25 @@ fi
 github_token=$1
 repository=$2
 
+# Delete default labels
+for ((i=0;i<${#default_labels[@]};++i)); do
+    response=$(curl --write-out %{http_code} \
+      --silent \
+      --output /dev/null \
+	  -X DELETE \
+	  "https://api.github.com/repos/$repository/labels/${default_labels[i]}" \
+	  -H "authorization: token $github_token" )
+
+    echo "https://api.github.com/repos/$repository/labels/${default_labels[i]}"
+	if [ "$response" -eq "204" ]
+	then
+		echo "Label ${default_labels[i]} has been successfuly deleted"
+	else
+		echo "Failed to delete ${default_labels[i]}. Code $response"
+    fi
+done 
+
+# Create custom labels
 for ((i=0;i<${#label_names[@]};++i)); do
 	response=$(curl --write-out %{http_code} \
       --silent \
@@ -62,4 +94,3 @@ for ((i=0;i<${#label_names[@]};++i)); do
 		echo "Failed to create ${label_names[i]}. Code $response"
 	fi
 done
-
