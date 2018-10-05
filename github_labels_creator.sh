@@ -37,7 +37,7 @@ default_labels=(
 )
 
 echo ''
-echo "This script will delete default labels and create c repustom repository labels."
+echo "This script will delete default labels and create custom repository labels."
 echo ''
 echo "First argument should be Github Auth token to authorize Github API Reqests,"
 echo "Second argument should be oranization/repository name (like: 'square/retrofit')."
